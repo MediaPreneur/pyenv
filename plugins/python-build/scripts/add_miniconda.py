@@ -11,6 +11,7 @@ Also ignores sub-patch releases if that major.minor.patch already exists,
 but otherwise, takes the latest sub-patch release for given OS/arch.
 Assumes all miniconda3 releases < 4.7 default to python 3.6, and anything else 3.7.
 """
+
 import textwrap
 from argparse import ArgumentParser
 from collections import defaultdict
@@ -25,7 +26,7 @@ import requests_html
 logger = logging.getLogger(__name__)
 
 CONDA_REPO = "https://repo.anaconda.com"
-MINICONDA_REPO = CONDA_REPO + "/miniconda"
+MINICONDA_REPO = f"{CONDA_REPO}/miniconda"
 # ANACONDA_REPO = CONDA_REPO + "/archive"
 
 install_script_fmt = """
@@ -63,7 +64,7 @@ class StrEnum(str, Enum):
     def __new__(cls, *args):
         for arg in args:
             if not isinstance(arg, str):
-                raise TypeError("Not text %s:" % arg)
+                raise TypeError(f"Not text {arg}:")
 
         return super(StrEnum, cls).__new__(cls, *args)
 
